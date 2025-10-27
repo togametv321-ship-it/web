@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>รายละเอียดต้นไม้</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 id="plant-name"></h1>
+    <p id="plant-sci" class="scientific"></p>
+  </header>
+
+  <section class="detail-container">
+    <img id="plant-img" src="" alt="plant" class="detail-img">
+    <p id="plant-desc"></p>
+    <a href="index.html" class="back-btn">⬅️ กลับหน้าหลัก</a>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const plants = JSON.parse(localStorage.getItem('plants') || '[]');
+    const plant = plants.find(p => p.name === name);
+
+    if (plant) {
+      document.getElementById('plant-name').textContent = plant.name;
+      document.getElementById('plant-sci').textContent = plant.sci;
+      document.getElementById('plant-img').src = plant.img;
+      document.getElementById('plant-desc').textContent = plant.desc;
+    } else {
+      document.querySelector('.detail-container').innerHTML = "<p>ไม่พบข้อมูลต้นไม้</p>";
+    }
+  </script>
+</body>
+</html>
